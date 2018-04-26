@@ -7,7 +7,7 @@ VALID_DATA = 'fer2013/valid'
 NUM_CLASSES = 7
 NB_TRAIN_SAMPLES = 28709
 NB_VALID_SAMPLES = 3589
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 
 # build a classifier model
 model = resnet50_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
