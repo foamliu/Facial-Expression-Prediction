@@ -13,12 +13,30 @@ This repository is using convolutional neural network to do facial expression pr
 
 ## Dataset
 
-We use the [FER-2013 Faces Database](http://www.socsci.ru.nl:8180/RaFD2/RaFD?p=main), a set of 28,709 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
+We use the FER-2013 Faces Database, a set of 28,709 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
 
-You have to request for access to the dataset or you can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data).
+You can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data).
+
+Please extract the package so that the folder structure looks like:
+
+FACIAL-EXPRESSION-PREDICTION
+│   predict.py
+│   pre-process.py
+│   README.md
+│   train.py
+├───fer2013
+│       fer2013.bib
+│       fer2013.csv
+│       README
 
 ## Usage
 
+### Train
 ```bash
-$ python convnet_faces.py poc
+$ python train.py
+```
+
+### Predict
+```bash
+$ python predict.py --i [image_path]
 ```
