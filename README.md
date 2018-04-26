@@ -1,7 +1,7 @@
 # Facial-Expression-Prediction
 
 
-This repository is using convolutional neural network to do facial expression prediction.
+This repository is to do facial expression prediction by fine-tuning ResNet-50 against FER-2013 Faces Database.
 
 
 ## Dependencies
@@ -17,19 +17,18 @@ We use the FER-2013 Faces Database, a set of 28,709 pictures of people displayin
 
 You can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data).
 
-Please extract the package so that the folder structure looks like:
+Please extract the package so that fer2013.csv is in fer2013 folder.
 
-FACIAL-EXPRESSION-PREDICTION
-│   predict.py
-│   pre-process.py
-│   README.md
-│   train.py
-├───fer2013
-│       fer2013.bib
-│       fer2013.csv
-│       README
+## ResNet-50
+
+Please download [ResNet-50](https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5) into imagenet_models folder.
 
 ## Usage
+
+### Data Pre-processing
+```bash
+$ python pre-process.py
+```
 
 ### Train
 ```bash
