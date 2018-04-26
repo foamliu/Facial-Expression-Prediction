@@ -1,4 +1,4 @@
-from resnet_152 import resnet152_model
+from resnet_101 import resnet101_model
 from keras.preprocessing.image import ImageDataGenerator
 
 IMG_WIDTH, IMG_HEIGHT = 224, 224
@@ -10,7 +10,7 @@ NB_VALID_SAMPLES = 3589
 BATCH_SIZE = 32
 
 # build a classifier model
-model = resnet152_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
+model = resnet101_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
 
 # prepare data augmentation configuration
 train_data_gen = ImageDataGenerator(rescale=1. / 255, zoom_range=0.2, rotation_range=20,
