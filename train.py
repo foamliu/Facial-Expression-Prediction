@@ -13,11 +13,9 @@ BATCH_SIZE = 32
 model = resnet152_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
 
 # prepare data augmentation configuration
-train_data_gen = ImageDataGenerator(featurewise_center=True,
-                                    featurewise_std_normalization=True, zoom_range=0.2, rotation_range=20,
+train_data_gen = ImageDataGenerator(featurewise_std_normalization=True, zoom_range=0.2, rotation_range=20,
                                     width_shift_range=0.2, height_shift_range=0.2, horizontal_flip=True)
-valid_data_gen = ImageDataGenerator(featurewise_center=True,
-                                    featurewise_std_normalization=True, zoom_range=0.2, rotation_range=20,
+valid_data_gen = ImageDataGenerator(featurewise_std_normalization=True, zoom_range=0.2, rotation_range=20,
                                     width_shift_range=0.2, height_shift_range=0.2, horizontal_flip=True)
 
 train_generator = train_data_gen.flow_from_directory(TRAIN_DATA, (IMG_WIDTH, IMG_HEIGHT), batch_size=BATCH_SIZE,
