@@ -19,7 +19,7 @@ You can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representatio
 
 Please extract the package so that fer2013.csv is in fer2013 folder.
 
-## ResNet-50
+## ImageNet Pretrained Models
 
 Please download [ResNet-50](https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5) into imagenet_models folder.
 

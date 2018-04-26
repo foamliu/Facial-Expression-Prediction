@@ -55,10 +55,12 @@ def read_data(file_path):
     print('The number of different facial expressions is %d' % labels_count)
 
     # show one image
-    show(train_images[8])
+    # show(train_images[8])
 
+    print('Start generating images...')
     save_data('fer2013/train', train_images, train_labels)
     save_data('fer2013/valid', valid_images, valid_labels)
+    print('Completed.')
 
 
 if __name__ == '__main__':
