@@ -6,6 +6,8 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras import backend as K
 
+from custom_layers.scale_layer import Scale
+
 from sklearn.metrics import log_loss
 
 import sys
