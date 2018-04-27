@@ -28,6 +28,7 @@ Download [ResNet-50](https://github.com/fchollet/deep-learning-models/releases/d
 $ python pre-process.py
 ```
  Folder structure:
+ 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/data.PNG)
  
 ### Train
