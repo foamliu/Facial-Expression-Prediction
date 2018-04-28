@@ -43,9 +43,9 @@ def read_data(file_path):
     print(data.head())
     print(np.unique(data["Usage"].values.ravel()))
     print('The number of training data set is %d' % (len(data[data.Usage == "Training"])))
-    print('The number of validation data set is %d' % (len(data[data.Usage == "PrivateTest"])))
+    print('The number of validation data set is %d' % (len(data[data.Usage == "PublicTest"])))
     train_data = data[data.Usage == "Training"]
-    valid_data = data[data.Usage == "PrivateTest"]
+    valid_data = data[data.Usage == "PublicTest"]
     train_images = parse_images(train_data)
     valid_images = parse_images(valid_data)
     train_labels = train_data["emotion"].values.ravel()
