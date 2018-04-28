@@ -1,4 +1,4 @@
-# Facial-Expression-Prediction
+# Facial Expression Prediction
 
 
 This repository is to do facial expression prediction by fine-tuning ResNet-101 with FER-2013 Faces Database.
@@ -13,23 +13,26 @@ This repository is to do facial expression prediction by fine-tuning ResNet-101 
 
 ## Dataset
 
-We use the FER-2013 Faces Database, a set of 28,709 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
+We use the FER-2013 Faces Database, a set of 35,887 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/random.png)
 
-You can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data), make sure fer2013.csv is in fer2013 folder.
+You can get it from [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data), make sure fer2013.csv is in fer2013 folder.
 
 ## ImageNet Pretrained Models
 
-Download [ResNet-50](https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5) into imagenet_models folder.
+Download [ResNet-101](https://drive.google.com/file/d/0Byy2AcGyEVxfTmRRVmpGWDczaXM/view?usp=sharing) into imagenet_models folder.
+
+I met OOM error when fine-tuning ResNet-152, you may want to have a try.
 
 ## Usage
 
 ### Data Pre-processing
+Extract 28,709 images [Usage='Training'] for training, and 3589 [Usage='PublicTest'] for validation:
 ```bash
 $ python pre-process.py
 ```
- Folder structure:
+ When complete, folder structure:
  
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/data.PNG)
  
@@ -38,6 +41,11 @@ $ python pre-process.py
 $ python train.py
 ```
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.PNG)
+
+### Analysis
+Use 3589 images [Usage='PrivateTest'] for result analysis.
+
+
 ### Predict
 ```bash
 $ python predict.py --i [image_path]

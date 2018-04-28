@@ -29,7 +29,7 @@ def save_data(dir_path, images, labels):
 
     for i in range(len(images)):
         image = images[i].reshape(48, 48)
-        label = emotion[labels[i]]
+        label = class_names[labels[i]]
         image_path = os.path.join(dir_path, label)
         if not os.path.exists(image_path):
             os.makedirs(image_path)
@@ -42,14 +42,15 @@ def read_data(file_path):
     print(data.shape)
     print(data.head())
     print(np.unique(data["Usage"].values.ravel()))
-    print('The number of training data set is %d' % (len(data[data.Usage == "Training"])))
-    print('The number of validation data set is %d' % (len(data[data.Usage == "PublicTest"])))
     train_data = data[data.Usage == "Training"]
     valid_data = data[data.Usage == "PublicTest"]
+    test_data = data[data.Usage == "PrivateTest"]
     train_images = parse_images(train_data)
     valid_images = parse_images(valid_data)
+    test_images = parse_images(test_data)
     train_labels = train_data["emotion"].values.ravel()
     valid_labels = valid_data["emotion"].values.ravel()
+    test_labels = test_data["emotion"].values.ravel()
     labels_count = np.unique(train_labels).shape[0]
     print(np.unique(train_labels))
     print('The number of different facial expressions is %d' % labels_count)
@@ -59,7 +60,11 @@ def read_data(file_path):
 
     print('Start generating images...')
     save_data('fer2013/train', train_images, train_labels)
+    print('The number of training data set is %d' % (len(train_data)))
     save_data('fer2013/valid', valid_images, valid_labels)
+    print('The number of validation data set is %d' % (len(valid_data)))
+    save_data('fer2013/test', test_images, test_labels)
+    print('The number of test data set is %d' % (len(test_data)))
     print('Completed.')
 
 
@@ -68,7 +73,7 @@ if __name__ == '__main__':
     image_width = 48
     image_height = 48
 
-    emotion = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Sad', 5: 'Surprise', 6: 'Neutral'}
+    class_names = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Sad', 5: 'Surprise', 6: 'Neutral'}
     # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
 
     read_data('fer2013/fer2013.csv')
