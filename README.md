@@ -32,7 +32,7 @@ Extract 28,709 images [Usage='Training'] for training, and 3589 [Usage='PublicTe
 ```bash
 $ python pre-process.py
 ```
- When complete, folder structure:
+ When complete, folder structure looks like:
  
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/data.PNG)
  
@@ -41,6 +41,11 @@ $ python pre-process.py
 $ python train.py
 ```
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.PNG)
+
+If you want to visualize during training, run in your terminal:
+```bash
+$ tensorboard --logdir path_to_current_dir/Graph
+```
 
 ### Analysis
 Use 3589 images [Usage='PrivateTest'] for result analysis.

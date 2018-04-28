@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import keras
+
 from resnet_101 import resnet101_model
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -25,12 +29,15 @@ if __name__ == '__main__':
     valid_generator = valid_data_gen.flow_from_directory(VALID_DATA, (IMG_WIDTH, IMG_HEIGHT), batch_size=BATCH_SIZE,
                                                          class_mode='categorical')
 
+    tbCallBack = keras.callbacks.TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=True)
+
     # fine tune the model
     history = model.fit_generator(
         train_generator,
         steps_per_epoch=NB_TRAIN_SAMPLES // BATCH_SIZE,
         validation_data=valid_generator,
         validation_steps=NB_VALID_SAMPLES // BATCH_SIZE,
-        epochs=10)
+        epochs=10,
+        callbacks=[tbCallBack])
 
     model.save_weights("model.h5")
