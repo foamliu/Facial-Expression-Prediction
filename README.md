@@ -13,7 +13,7 @@ This repository is to do facial expression prediction by fine-tuning ResNet-101 
 
 ## Dataset
 
-We use the FER-2013 Faces Database, a set of 35,887 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
+I use the FER-2013 Faces Database, a set of 35,887 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/random.png)
 
@@ -28,7 +28,7 @@ I met OOM error when fine-tuning ResNet-152, you may want to have a try.
 ## Usage
 
 ### Data Pre-processing
-Extract 28,709 images [Usage='Training'] for training, and 3589 [Usage='PublicTest'] for validation:
+Extract 28,709 images [Usage='Training'] for training, and 3,589 [Usage='PublicTest'] for validation:
 ```bash
 $ python pre-process.py
 ```
@@ -44,11 +44,11 @@ $ python train.py
 
 If you want to visualize during training, run in your terminal:
 ```bash
-$ tensorboard --logdir path_to_current_dir/Graph
+$ tensorboard --logdir path_to_current_dir/logs
 ```
 
 ### Analysis
-Use 3589 images [Usage='PrivateTest'] for result analysis.
+Use 3,589 images [Usage='PrivateTest'] for result analysis.
 
 
 ### Predict
