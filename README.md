@@ -15,7 +15,7 @@ This repository is to do facial expression prediction by fine-tuning ResNet-101 
 
 We use the FER-2013 Faces Database, a set of 28,709 pictures of people displaying 7 emotional expressions (angry, disgusted, fearful, happy, sad, surprised and neutral).
 
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/random.PNG)
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/random.png)
 
 You can get it on [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data), make sure fer2013.csv is in fer2013 folder.
 
