@@ -37,7 +37,7 @@ if __name__ == '__main__':
         steps_per_epoch=NB_TRAIN_SAMPLES // BATCH_SIZE,
         validation_data=valid_generator,
         validation_steps=NB_VALID_SAMPLES // BATCH_SIZE,
-        epochs=10,
+        epochs=50,
         callbacks=[tbCallBack])
 
     model.save_weights("model.h5")
