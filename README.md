@@ -40,7 +40,7 @@ $ python pre-process.py
 ```bash
 $ python train.py
 ```
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.PNG)
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.png)
 
 If you want to visualize during training, run in your terminal:
 ```bash
