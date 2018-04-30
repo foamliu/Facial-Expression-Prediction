@@ -32,10 +32,7 @@ Extract 28,709 images [Usage='Training'] for training, and 3,589 [Usage='PublicT
 ```bash
 $ python pre-process.py
 ```
- When complete, folder structure looks like:
- 
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/data.PNG)
- 
+  
 ### Train
 ```bash
 $ python train.py
@@ -55,6 +52,14 @@ Rename the best model to "Model.best.hdf5", and use 3,589 images [Usage='Private
 ```bash
 $ python analyze.py
 ```
+
+Test acc: 71.22%
+
+Confusion matrix:
+
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_not_normalized.png)
+
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_normalized.png
 
 
 ### Demo
