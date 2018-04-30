@@ -29,11 +29,21 @@ def save_data(dir_path, images, labels):
 
     for i in range(len(images)):
         image = images[i].reshape(48, 48)
-        label = class_names[labels[i]]
+        label = str(labels[i])
         image_path = os.path.join(dir_path, label)
         if not os.path.exists(image_path):
             os.makedirs(image_path)
         image_path = os.path.join(image_path, str(i) + '.png')
+        cv.imwrite(image_path, image)
+
+
+def save_test_data(dir_path, images):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+    for i in range(len(images)):
+        image = images[i].reshape(48, 48)
+        image_path = os.path.join(dir_path, str(i) + '.png')
         cv.imwrite(image_path, image)
 
 
@@ -63,7 +73,7 @@ def read_data(file_path):
     print('The number of training data set is %d' % (len(train_data)))
     save_data('fer2013/valid', valid_images, valid_labels)
     print('The number of validation data set is %d' % (len(valid_data)))
-    save_data('fer2013/test', test_images, test_labels)
+    save_test_data('fer2013/test', test_images)
     print('The number of test data set is %d' % (len(test_data)))
     print('Completed.')
 

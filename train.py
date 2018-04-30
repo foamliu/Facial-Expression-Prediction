@@ -8,11 +8,11 @@ from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
 from keras.callbacks import ReduceLROnPlateau
 
 # parameters
-img_width, img_height = 227, 227
+img_width, img_height = 224, 224
 num_channels = 3
+num_classes = 7
 train_data = 'fer2013/train'
 valid_data = 'fer2013/valid'
-num_classes = 7
 num_train_samples = 28709
 num_valid_samples = 3589
 verbose = 1

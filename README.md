@@ -40,18 +40,24 @@ $ python pre-process.py
 ```bash
 $ python train.py
 ```
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.PNG)
 
 If you want to visualize during training, run in your terminal:
 ```bash
 $ tensorboard --logdir path_to_current_dir/logs
 ```
 
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/train.png)
+
+
+
 ### Analysis
-Use 3,589 images [Usage='PrivateTest'] for result analysis.
+Rename the best model to "Model.best.hdf5", and use 3,589 images [Usage='PrivateTest'] for result analysis:
+```bash
+$ python analyze.py
+```
 
 
-### Predict
+### Demo
 ```bash
 $ python predict.py --i [image_path]
 ```

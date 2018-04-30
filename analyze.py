@@ -6,10 +6,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import confusion_matrix
-from keras.models import load_model
 from keras.preprocessing import image
 
 import os
+from os import listdir
+from os.path import isfile, join
+
+from resnet_101 import resnet101_model
 
 
 def parse_images(data):
@@ -42,12 +45,16 @@ def decode_predictions(preds, top=5):
     return results
 
 
-def predict(model, img_dir, img_files):
+def predict(model, img_dir):
     y_pred = []
     y_prob = []
 
-    for f in img_files:
-        img_path = os.path.join(img_dir, f).replace("\\", "/")
+    img_files = []
+    for i in range(num_test_samples):
+        img_path = os.path.join(img_dir, str(i) + '.png')
+        img_files.append(img_path)
+
+    for img_path in img_files:
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
         preds = model.predict(x[None, :, :, :])
@@ -58,6 +65,14 @@ def predict(model, img_dir, img_files):
         y_prob.append(pred_prob)
 
     return y_pred, y_prob
+
+
+def decode(y_test):
+    ret = []
+    for i in range(len(y_test)):
+        id = y_test[i]
+        ret.append(class_names[id])
+    return ret
 
 
 def plot_confusion_matrix(cm, classes,
@@ -95,15 +110,37 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 
-if __name__ == '__main__':
-    class_names = {'Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral'}
-    # class_names = {'愤怒', '厌恶', '恐惧', '高兴', '悲伤', '惊讶', '无表情'}
+def calc_acc(y_pred, y_test):
+    num_corrects = 0
+    for i in range(num_test_samples):
+        pred = y_pred[i]
+        test = y_test[i]
+        if pred == test:
+            num_corrects += 1
+    return num_corrects / num_test_samples
 
-    print("\nLoad the pre-trained ResNet model....")
-    model = load_model("model.h5", compile=False)
+
+if __name__ == '__main__':
+    img_width, img_height = 224, 224
+    num_channels = 3
+    num_classes = 7
+    class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
+    # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
+    num_test_samples = 3589
+
+    print("\nLoad the trained ResNet model....")
+    model = resnet101_model(img_height, img_width, num_channels, num_classes)
+    model.load_weights("model.best.hdf5", by_name=True)
+
     y_pred, y_prob = predict(model, 'fer2013/test')
+    print("y_pred: " + str(y_pred))
 
     y_test = read_data('fer2013/fer2013.csv')
+    y_test = decode(y_test)
+    print("y_test: " + str(y_test))
+
+    acc = calc_acc(y_pred, y_test)
+    print("%s: %.2f%%" % ('acc', acc * 100))
 
     # Compute confusion matrix
     cnf_matrix = confusion_matrix(y_test, y_pred)
