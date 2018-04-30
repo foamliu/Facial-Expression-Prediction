@@ -59,7 +59,7 @@ Confusion matrix:
 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_not_normalized.png)
 
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_normalized.png
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_normalized.png)
 
 
 ### Demo
