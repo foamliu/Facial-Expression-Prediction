@@ -53,9 +53,10 @@ Rename the best model to "Model.best.hdf5", and use 3,589 images [Usage='Private
 $ python analyze.py
 ```
 
-Test acc: 71.22%
+#### Test acc: 
+**71.22%**
 
-Confusion matrix:
+#### Confusion matrix:
 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix_not_normalized.png)
 
