@@ -29,7 +29,7 @@ def save_data(dir_path, images, labels):
 
     for i in range(len(images)):
         image = images[i].reshape(48, 48)
-        label = class_names[labels[i]]
+        label = str(labels[i])
         image_path = os.path.join(dir_path, label)
         if not os.path.exists(image_path):
             os.makedirs(image_path)
