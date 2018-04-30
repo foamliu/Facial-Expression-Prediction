@@ -54,7 +54,6 @@ def predict(model, img_dir):
         img_path = os.path.join(img_dir, str(i) + '.png')
         img_files.append(img_path)
 
-
     for img_path in img_files:
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
@@ -125,7 +124,7 @@ if __name__ == '__main__':
     img_width, img_height = 224, 224
     num_channels = 3
     num_classes = 7
-    class_names = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Sad', 5: 'Surprise', 6: 'Neutral'}
+    class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
     # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
     num_test_samples = 3589
 
@@ -134,11 +133,11 @@ if __name__ == '__main__':
     model.load_weights("model.best.hdf5", by_name=True)
 
     y_pred, y_prob = predict(model, 'fer2013/test')
-    #print("y_pred: " + str(y_pred))
+    print("y_pred: " + str(y_pred))
 
     y_test = read_data('fer2013/fer2013.csv')
-    #print("y_test: " + str(y_test))
     y_test = decode(y_test)
+    print("y_test: " + str(y_test))
 
     acc = calc_acc(y_pred, y_test)
     print("%s: %.2f%%" % ('acc', acc * 100))
