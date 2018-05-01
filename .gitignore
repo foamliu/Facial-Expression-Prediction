@@ -6,3 +6,7 @@ imagenet_models/
 logs/
 model.best.hdf5
 training.log
+output.avi
+test.mp4
+model.*
+models

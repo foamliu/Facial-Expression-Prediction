@@ -21,7 +21,7 @@ You can get it from [Kraggle](https://www.kaggle.com/c/challenges-in-representat
 
 ## ImageNet Pretrained Models
 
-Download [ResNet-101](https://drive.google.com/file/d/0Byy2AcGyEVxfTmRRVmpGWDczaXM/view?usp=sharing) into imagenet_models folder.
+Download [ResNet-101](https://drive.google.com/file/d/0Byy2AcGyEVxfTmRRVmpGWDczaXM/view?usp=sharing) into models folder.
 
 I met OOM error when fine-tuning ResNet-152, you may want to have a try.
 
@@ -48,7 +48,7 @@ $ tensorboard --logdir path_to_current_dir/logs
 
 
 ### Analysis
-Rename the best model to "Model.best.hdf5", and use 3,589 images [Usage='PrivateTest'] for result analysis:
+Rename the best model to "Model.best.hdf5", put it in "models" folder, and use 3,589 images [Usage='PrivateTest'] for result analysis:
 ```bash
 $ python analyze.py
 ```
@@ -65,5 +65,5 @@ $ python analyze.py
 
 ### Demo
 ```bash
-$ python predict.py --i [image_path]
+$ python demo.py --v [video_path]
 ```

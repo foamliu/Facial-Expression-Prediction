@@ -32,20 +32,14 @@ if __name__ == '__main__':
                                         height_shift_range=0.1,
                                         zoom_range=0.1,
                                         horizontal_flip=True)
-    valid_data_gen = ImageDataGenerator(featurewise_center=False,
-                                        featurewise_std_normalization=False,
-                                        rotation_range=10,
-                                        width_shift_range=0.1,
-                                        height_shift_range=0.1,
-                                        zoom_range=0.1,
-                                        horizontal_flip=True)
+    valid_data_gen = ImageDataGenerator()
 
     # callbacks
     tensor_board = keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=True)
     log_file_path = 'training.log'
     csv_logger = CSVLogger(log_file_path, append=False)
-    early_stop = EarlyStopping('val_loss', patience=patience)
-    reduce_lr = ReduceLROnPlateau('val_loss', factor=0.1, patience=int(patience / 4), verbose=1)
+    early_stop = EarlyStopping('val_acc', patience=patience)
+    reduce_lr = ReduceLROnPlateau('val_acc', factor=0.1, patience=int(patience / 4), verbose=1)
     trained_models_path = 'model'
     model_names = trained_models_path + '.{epoch:02d}-{val_acc:.2f}.hdf5'
     model_checkpoint = ModelCheckpoint(model_names, monitor='val_acc', verbose=1, save_best_only=True)
