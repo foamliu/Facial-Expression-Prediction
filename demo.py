@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     video = args["video"]
     if video is None:
-        video = 'test.mp4'
+        video = 'video/test.mp4'
 
     img_width, img_height = 224, 224
     num_channels = 3
@@ -26,20 +26,20 @@ if __name__ == '__main__':
     class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
     # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
 
-    # initialize the camera and grab a reference to the raw camera capture
-    cap = cv.VideoCapture(video)
-    fourcc = cv.VideoWriter_fourcc(*'MPEG')
-    out = cv.VideoWriter('output.avi', fourcc, 24.0, (400, 600))
-
     detection_model = load_detection_model('models/haarcascade_frontalface_default.xml')
     emotion_model = load_emotion_model('models/model.best.hdf5')
 
-    # capture frames from the camera
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
+    # initialize the camera and grab a reference to the raw camera capture
+    cap = cv.VideoCapture(video)
 
+    ret, frame = cap.read()
+    height, width = frame.shape[:2]
+
+    fourcc = cv.VideoWriter_fourcc(*'MPEG')
+    out = cv.VideoWriter('video/output.avi', fourcc, 24.0, (width, height))
+
+    # capture frames from the camera
+    while ret:
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         gray = cv.cvtColor(gray, cv.COLOR_GRAY2RGB)
         faces = detect_faces(detection_model, gray)
@@ -68,6 +68,8 @@ if __name__ == '__main__':
         key = cv.waitKey(1)
         if key == ord("q"):
             break
+
+        ret, frame = cap.read()
 
     cap.release()
     out.release()
