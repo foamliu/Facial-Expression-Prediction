@@ -3,11 +3,6 @@ import cv2
 from resnet_101 import resnet101_model
 
 
-def load_detection_model(model_path):
-    detection_model = cv2.CascadeClassifier(model_path)
-    return detection_model
-
-
 def load_emotion_model(model_path):
     img_width, img_height = 224, 224
     num_channels = 3
@@ -16,10 +11,6 @@ def load_emotion_model(model_path):
     emotion_model = resnet101_model(img_height, img_width, num_channels, num_classes)
     emotion_model.load_weights(model_path, by_name=True)
     return emotion_model
-
-
-def detect_faces(detection_model, gray_image_array):
-    return detection_model.detectMultiScale(gray_image_array, scaleFactor=1.1, minNeighbors=5, minSize=(200, 200))
 
 
 def draw_bounding_box(image, coordinates, color):
@@ -57,3 +48,9 @@ def get_color(emotion, prob):
     else:
         color = prob * np.asarray((0, 255, 0))
     return color
+
+
+def draw_str(dst, target, s):
+    x, y = target
+    cv2.putText(dst, s, (x + 1, y + 1), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 0), thickness=2, lineType=cv2.LINE_AA)
+    cv2.putText(dst, s, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), lineType=cv2.LINE_AA)

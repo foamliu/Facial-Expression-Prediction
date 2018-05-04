@@ -2,13 +2,24 @@
 import cv2 as cv
 import numpy as np
 import argparse
-from utils import load_detection_model
+import dlib
 from utils import load_emotion_model
-from utils import detect_faces
 from utils import apply_offsets
 from utils import draw_bounding_box
 from utils import draw_text
 from utils import get_color
+from utils import draw_str
+
+
+def rect_to_bb(rect):
+    x = rect.left()
+    y = rect.top()
+    w = rect.right() - x
+    h = rect.bottom() - y
+
+    # return a tuple of (x, y, w, h)
+    return x, y, w, h
+
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -26,7 +37,7 @@ if __name__ == '__main__':
     class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
     # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
 
-    detection_model = load_detection_model('models/haarcascade_frontalface_default.xml')
+    detector = dlib.get_frontal_face_detector()
     emotion_model = load_emotion_model('models/model.best.hdf5')
 
     # initialize the camera and grab a reference to the raw camera capture
@@ -38,13 +49,15 @@ if __name__ == '__main__':
     fourcc = cv.VideoWriter_fourcc(*'MPEG')
     out = cv.VideoWriter('video/output.avi', fourcc, 24.0, (width, height))
 
+    frame_idx = 0
     # capture frames from the camera
     while ret:
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         gray = cv.cvtColor(gray, cv.COLOR_GRAY2RGB)
-        faces = detect_faces(detection_model, gray)
+        faces = detector(gray, 1)
 
-        for (x, y, w, h) in faces:
+        for rect in faces:
+            (x, y, w, h) = rect_to_bb(rect)
             x1, x2, y1, y2 = apply_offsets((x, y, w, h), (20, 40))
             gray_face = gray[y1:y2, x1:x2]
             gray_face = cv.resize(gray_face, (img_height, img_width))
@@ -61,8 +74,12 @@ if __name__ == '__main__':
             draw_text(image=frame, coordinates=(x1, y1, x2 - x1, y2 - y1), color=color, text=emotion)
             out.write(frame)
 
+        draw_str(frame, (20, 20), 'frame_idx: %d.' % frame_idx)
+
         # show the frame
         cv.imshow("Frame", frame)
+
+        frame_idx += 1
 
         # if the `q` key was pressed, break from the loop
         key = cv.waitKey(1)
