@@ -64,6 +64,8 @@ $ python analyze.py
 
 
 ### Demo
+Download [pre-trained model](https://github.com/foamliu/Facial-Expression-Prediction/releases/download/v1.0/model.best.hdf5) into "models" folder then run:
+
 ```bash
 $ python demo.py --v [video_path]
 ```
