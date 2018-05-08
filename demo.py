@@ -3,12 +3,15 @@ import cv2 as cv
 import numpy as np
 import argparse
 import dlib
+import time
+import keras.backend as K
 from utils import load_emotion_model
 from utils import apply_offsets
 from utils import draw_bounding_box
 from utils import draw_text
 from utils import get_color
 from utils import draw_str
+from console_progressbar import ProgressBar
 
 
 def rect_to_bb(rect):
@@ -35,7 +38,7 @@ if __name__ == '__main__':
     num_classes = 7
 
     class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
-    # emotion = {0:'愤怒', 1:'厌恶', 2:'恐惧', 3:'高兴', 4:'悲伤', 5:'惊讶', 6: '无表情'}
+    # class_names = ['愤怒', '厌恶', '恐惧', '高兴', '悲伤', '惊讶', '无表情']
 
     detector = dlib.get_frontal_face_detector()
     emotion_model = load_emotion_model('models/model.best.hdf5')
@@ -47,18 +50,22 @@ if __name__ == '__main__':
     height, width = frame.shape[:2]
 
     fourcc = cv.VideoWriter_fourcc(*'MPEG')
-    out = cv.VideoWriter('video/output.avi', fourcc, 24.0, (width, height))
+    out = cv.VideoWriter('video/output.avi', fourcc, 24.0, (width, width))
 
+    start = time.time()
     frame_idx = 0
+    num_frames = 984
+    pb = ProgressBar(total=100, prefix='Processing video', suffix='', decimals=3, length=50, fill='=')
     # capture frames from the camera
     while ret:
+        frame = frame[100:100 + width, :]
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         gray = cv.cvtColor(gray, cv.COLOR_GRAY2RGB)
         faces = detector(gray, 1)
 
         for rect in faces:
             (x, y, w, h) = rect_to_bb(rect)
-            x1, x2, y1, y2 = apply_offsets((x, y, w, h), (20, 40))
+            x1, x2, y1, y2 = apply_offsets((x, y, w, h), (10, 10))
             gray_face = gray[y1:y2, x1:x2]
             gray_face = cv.resize(gray_face, (img_height, img_width))
             gray_face = np.expand_dims(gray_face, 0)
@@ -74,12 +81,18 @@ if __name__ == '__main__':
             draw_text(image=frame, coordinates=(x1, y1, x2 - x1, y2 - y1), color=color, text=emotion)
             out.write(frame)
 
-        draw_str(frame, (20, 20), 'frame_idx: %d.' % frame_idx)
+        end = time.time()
+        seconds = end - start
+        fps = 1.0 / seconds
+        draw_str(frame, (20, 20), 'frame_idx: %d, fps: %.2f' % (frame_idx, fps))
+        print('fps: %.2f' % frame_idx)
+        pb.print_progress_bar(frame_idx * 100 / num_frames)
 
         # show the frame
-        cv.imshow("Frame", frame)
+        # cv.imshow("Frame", frame)
 
         frame_idx += 1
+        start = time.time()
 
         # if the `q` key was pressed, break from the loop
         key = cv.waitKey(1)
@@ -90,4 +103,5 @@ if __name__ == '__main__':
 
     cap.release()
     out.release()
-    cv.destroyAllWindows()
+    # cv.destroyAllWindows()
+    K.clear_session()
