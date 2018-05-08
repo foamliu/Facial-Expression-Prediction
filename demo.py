@@ -54,7 +54,8 @@ if __name__ == '__main__':
 
     start = time.time()
     frame_idx = 0
-    num_frames = 984
+    num_frames = 987
+    total_delay = 0
     pb = ProgressBar(total=100, prefix='Processing video', suffix='', decimals=3, length=50, fill='=')
     # capture frames from the camera
     while ret:
@@ -83,6 +84,7 @@ if __name__ == '__main__':
 
         end = time.time()
         seconds = end - start
+        total_delay += seconds
         fps = 1.0 / seconds
         draw_str(frame, (20, 20), 'frame_idx: %d, fps: %.2f' % (frame_idx, fps))
         print('fps: %.2f' % fps)
@@ -100,6 +102,9 @@ if __name__ == '__main__':
             break
 
         ret, frame = cap.read()
+
+    print('num_frames: {}'.format(num_frames))
+    print('avg fps: {}'.format(str(num_frames/total_delay)))
 
     cap.release()
     out.release()
