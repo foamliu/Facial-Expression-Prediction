@@ -85,7 +85,7 @@ if __name__ == '__main__':
         seconds = end - start
         fps = 1.0 / seconds
         draw_str(frame, (20, 20), 'frame_idx: %d, fps: %.2f' % (frame_idx, fps))
-        print('fps: %.2f' % frame_idx)
+        print('fps: %.2f' % fps)
         pb.print_progress_bar(frame_idx * 100 / num_frames)
 
         # show the frame
