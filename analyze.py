@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     print("\nLoad the trained ResNet model....")
     model = resnet101_model(img_height, img_width, num_channels, num_classes)
-    model.load_weights("model.best.hdf5", by_name=True)
+    model.load_weights("models/model.best.hdf5", by_name=True)
 
     y_pred, y_prob = predict(model, 'fer2013/test')
     print("y_pred: " + str(y_pred))
