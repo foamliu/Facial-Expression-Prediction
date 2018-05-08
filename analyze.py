@@ -4,6 +4,7 @@ import pandas as pd
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 from sklearn.metrics import confusion_matrix
 from keras.preprocessing import image
@@ -50,6 +51,7 @@ def predict(model, img_dir):
     y_prob = []
 
     img_files = []
+    start = time.time()
     for i in range(num_test_samples):
         img_path = os.path.join(img_dir, str(i) + '.png')
         img_files.append(img_path)
@@ -63,6 +65,10 @@ def predict(model, img_dir):
         pred_prob = decoded[0][0][1]
         y_pred.append(pred_label)
         y_prob.append(pred_prob)
+
+    end = time.time()
+    seconds = end - start
+    print('avg fps: {}'.format(str(num_test_samples / seconds)))
 
     return y_pred, y_prob
 
