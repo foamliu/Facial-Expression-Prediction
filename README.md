@@ -69,3 +69,5 @@ Download [pre-trained model](https://github.com/foamliu/Facial-Expression-Predic
 ```bash
 $ python demo.py --v [video_path]
 ```
+
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/demo.gif)
