@@ -17,7 +17,7 @@
 
  ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/random.png)
 
-你可以从 [Kraggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)下载数据集，别忘了把fer2013.csv放在fer2013文件夹中。
+你可以从 [Kaggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)下载数据集，别忘了把fer2013.csv放在fer2013文件夹中。
 
 ## ImageNet 预训练模型
 
